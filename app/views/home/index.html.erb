@@ -1,0 +1,14 @@
+<h1>Welcome to My Cryptocurrency Portfolio app!</h1>
+<p>Please Sign up or Log in to get started.</p>
+
+<br/><br/>
+
+<% @coins %>
+
+<% for x in @coins['data'] %>
+ <% for coin in @my_coins %>
+     <% if coin == x['symbol'] %>
+         <%= x['name'] %>: $<%= x['quote']['USD']['price'] %><br /><br />
+     <% end %>
+ <% end %>
+<% end %>
