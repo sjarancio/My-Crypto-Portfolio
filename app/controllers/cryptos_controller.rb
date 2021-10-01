@@ -1,7 +1,7 @@
 class CryptosController < ApplicationController
   before_action :set_crypto, only: %i[ show edit update destroy ]
   before_action :authenticate_user!
-
+  
   # GET /cryptos or /cryptos.json
   def index
     @cryptos = Crypto.all
