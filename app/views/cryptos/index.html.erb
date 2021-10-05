@@ -1,29 +1,42 @@
-
-
-<h1>Cryptos</h1>
-
-<table>
+<br>
+<h1>My Cryptocurrency Portfolio</h1>
+<br>
+<table class="table table-striped table-hover table-bordered">
   <thead>
     <tr>
+      <th>Name</th>
       <th>Symbol</th>
-      <th>User</th>
-      <th>Cost per</th>
-      <th>Amount owned</th>
-      <th colspan="3"></th>
+      <th>Current Price</th>
+      <th>24 Hour Change</th>
+      <th>Amount Owned</th>
+      <th>Dollar Cost Average</th>
+      <th>Total Invested</th>
+      <th>Current Value</th>
+      <th>Profit/Loss</th>
     </tr>
   </thead>
 
   <tbody>
     <% @cryptos.each do |crypto| %>
       <% if crypto.user_id == current_user.id %>
+        <% if crypto.symbol %>
+          <% crypto.symbol = crypto.symbol.upcase %>
+        <% end %>
         <tr>
-          <td><%= crypto.symbol %></td>
-          <td><%= crypto.user_id %></td>
-          <td><%= crypto.cost_per %></td>
-          <td><%= crypto.amount_owned %></td>
-          <td><%= link_to 'Show', crypto %></td>
-          <td><%= link_to 'Edit', edit_crypto_path(crypto) %></td>
-          <td><%= link_to 'Destroy', crypto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% for x in @lookup_crypto['data'] %>
+            <% if crypto.symbol == x['symbol'] %>
+              <td><%= link_to x['name'], crypto %> </td>
+              <td><%= crypto.symbol %></td>
+              <td>$<%= x['quote']['USD']['price'] %></td>
+              <td><%= x['quote']['USD']['percent_change_24h'] %>%</td>
+              <td><%= crypto.amount_owned %></td>
+              <td><%= number_to_currency(crypto.cost_per) %></td>
+              <td><%= number_to_currency(crypto.cost_per * crypto.amount_owned) %></td>
+              <td> <%= number_to_currency(x['quote']['USD']['price'].to_d * crypto.amount_owned) %> </td>
+              <td><%= number_to_currency((x['quote']['USD']['price'].to_d * crypto.amount_owned) - (crypto.cost_per * crypto.amount_owned))%></td>
+              <% @profit_loss += (x['quote']['USD']['price'].to_d * crypto.amount_owned) - (crypto.cost_per * crypto.amount_owned)%>
+            <% end %>
+        <% end %>
         </tr>
       <% end %>
     <% end %>
@@ -31,5 +44,8 @@
 </table>
 
 <br>
-
-<%= link_to 'New Crypto', new_crypto_path %>
+<br/>
+<strong>Portfolio Profit/Loss: </strong><%= number_to_currency(@profit_loss)%>
+<br>
+<br>
+<%= link_to 'New Crypto', new_crypto_path, class: "btn btn-success" %>
