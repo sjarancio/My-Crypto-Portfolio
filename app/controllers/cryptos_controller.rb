@@ -14,6 +14,11 @@ class CryptosController < ApplicationController
 
   # GET /cryptos/1 or /cryptos/1.json
   def show
+    @cryptos = Crypto.all
+    @url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=89c05170-722e-4b74-85e7-012df26e1894&start=1&limit=5000&convert=USD'
+    @uri = URI(@url)
+    @response = Net::HTTP.get(@uri)
+    @show_crypto = JSON.parse(@response)
   end
 
   # GET /cryptos/new

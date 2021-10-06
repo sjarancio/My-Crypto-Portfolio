@@ -1,18 +1,15 @@
-
-
+<br/>
+<br/>
+<h2>Selected Purchase</h2>
+<br/>
 <p>
   <strong>Symbol:</strong>
-  <%= @crypto.symbol %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @crypto.user_id %>
+  <%= @crypto.symbol.upcase %>
 </p>
 
 <p>
   <strong>Cost per:</strong>
-  <%= @crypto.cost_per %>
+  <%= number_to_currency(@crypto.cost_per) %>
 </p>
 
 <p>
