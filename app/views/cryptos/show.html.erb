@@ -2,21 +2,26 @@
 <br/>
 <h2>Selected Purchase</h2>
 <br/>
-<p>
-  <strong>Symbol:</strong>
-  <%= @crypto.symbol.upcase %>
-</p>
+<div class="card text-dark bg-info mb-3" style="max-width: 20rem;">
+  <div class="card-body">
+    <h5 class="card-title">
+      <strong>Symbol:</strong>
+      <%= @crypto.symbol.upcase %>
+    </h5>
 
-<p>
-  <strong>Cost per:</strong>
-  <%= number_to_currency(@crypto.cost_per) %>
-</p>
+    <h6 class="card-title">
+      <strong>Cost per:</strong>
+      <%= number_to_currency(@crypto.cost_per) %>
+    </h6>
 
-<p>
-  <strong>Amount owned:</strong>
-  <%= @crypto.amount_owned %>
-</p>
+    <h6 class="card-title">
+      <strong>Amount owned:</strong>
+      <%= @crypto.amount_owned %>
+    </h6>
+  </div>
+</div>
+<br><br>
 
-<%= link_to 'Edit', edit_crypto_path(@crypto) %> |
-<%= link_to 'Delete', crypto_path(@crypto), method: :delete, data: { confirm: 'Are you sure?' } %> |
-<%= link_to 'Back', cryptos_path %>
+<%= link_to 'Edit', edit_crypto_path(@crypto), class: "btn btn-outline-success" %> |
+<%= link_to 'Delete', crypto_path(@crypto), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger" %> |
+<%= link_to 'Back', cryptos_path, class: "btn btn-outline-primary" %>

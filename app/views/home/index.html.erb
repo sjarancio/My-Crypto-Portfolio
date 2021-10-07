@@ -2,19 +2,20 @@
 <br><br/>
 
 <% if user_signed_in? %>
-    <h4>Popular Cryptocurrencies</h4>
+    <h3>Popular Cryptocurrencies</h3>
 <% else %>
-    <p>Please Sign up or Log in to get started.</p>
+    <h3>Please Sign up or Log in to get started.</h3>
 <% end %>
 
 <br/><br/>
 
 <% @coins %>
-
+<ol class="list-group list-group-numbered ">
 <% for x in @coins['data'] %>
  <% for coin in @my_coins %>
      <% if coin == x['symbol'] %>
-         <%= x['name'] %>: $<%= x['quote']['USD']['price'] %><br /><br />
+         <li class="list-group-item list-group-item-info"><%= x['name'] %>: $<%= x['quote']['USD']['price'] %></li><br /><br />
      <% end %>
  <% end %>
 <% end %>
+</ol>
